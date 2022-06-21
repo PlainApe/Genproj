@@ -1,6 +1,6 @@
 import os
 from os import path
-from sys import argv
+from sys import argv, platform
 import argparse
 cmake_data = ['cmake_minimum_required(VERSION 3.10)']
 
@@ -146,8 +146,8 @@ else
 fi
 make
 cd ..''')
-
-os.system(f'chmod +x {project_dir}/build.sh')
+if not platform.startswith('win'):
+    os.system(f'chmod +x {project_dir}/build.sh')
 
 with open(f'{path.join(project_dir, src_dir)}/main.c', 'w') as f:
     f.write('''#include <stdio.h>
